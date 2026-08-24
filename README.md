@@ -4,7 +4,7 @@
 
 > ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request
 
-📊 **1** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-24 13:38:33 CST
+📊 **1** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-24 13:43:15 CST
 
 ## 📑 Table of Contents
 

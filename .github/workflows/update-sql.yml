@@ -1,0 +1,198 @@
+# .github/workflows/update-sql.yml
+name: Update SQL from CSV
+
+on:
+  push:
+    paths:
+      - 'food-original.csv'
+      - 'data/*.csv'
+      - '.github/workflows/update-sql.yml'
+      - '../../export_to_sql.py'
+    branches:
+      - main
+      - master
+  pull_request:
+    paths:
+      - 'food-original.csv'
+      - 'data/*.csv'
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+jobs:
+  generate-sql:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      # 1. Check out the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      # 2. Set up Python (with built-in cache)
+      - name: Set up Python
+        id: setup-python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: '**/requirements.txt'
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "⚠️ requirements.txt not found, skipping pip install"
+          fi
+
+      # 4. Debug: list the file structure
+      - name: Debug - List files
+        run: |
+          echo "Current directory:"
+          ls -la
+          echo ""
+          echo "Scripts directory:"
+          ls -la scripts/ 2>/dev/null || echo "scripts/ directory not found"
+          echo ""
+          echo "CSV files:"
+          ls -la *.csv 2>/dev/null || echo "No CSV files in root"
+          echo ""
+          echo "Data directory:"
+          ls -la data/ 2>/dev/null || echo "data/ directory not found"
+
+      # 5. Generate SQL from CSV
+      - name: Generate SQL from CSV
+        id: generate
+        run: |
+          # Check if script exists
+          if [ ! -f "export_to_sql.py" ]; then
+            echo "❌ export_to_sql.py not found!"
+            exit 1
+          fi
+          
+          # Check if a CSV file exists
+          if [ ! -f "food-original.csv" ] && [ ! -f "data/food.csv" ]; then
+            echo "❌ No CSV file found!"
+            echo "Available files:"
+            find . -name "*.csv" -type f
+            exit 1
+          fi
+          
+          # Set environment variables
+          export CSV_PATH="${CSV_PATH:-food-original.csv}"
+          export SQL_PATH="${SQL_PATH:-data/food.sql}"
+          
+          echo "Using CSV_PATH: $CSV_PATH"
+          echo "Using SQL_PATH: $SQL_PATH"
+          
+          # Create data directory
+          mkdir -p data
+          
+          # Run the script
+          python export_to_sql.py
+          
+          # Verify that the SQL file was generated
+          if [ -f "data/food.sql" ]; then
+            echo "✅ SQL file generated successfully"
+            echo "generated=true" >> $GITHUB_OUTPUT
+            echo "SQL file size: $(wc -l < data/food.sql) lines"
+          else
+            echo "❌ Failed to generate SQL file"
+            echo "generated=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      # 6. Check for changes
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -f "data/food.sql" ]; then
+            if git diff --quiet data/food.sql; then
+              echo "changes=false" >> $GITHUB_OUTPUT
+              echo "ℹ️ No changes in SQL file"
+            else
+              echo "changes=true" >> $GITHUB_OUTPUT
+              echo "✅ Changes detected in SQL file"
+              git diff --stat data/food.sql
+            fi
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      # 7. Pull the latest remote code (with stashing) before committing
+      - name: Pull latest changes with stashing
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+          echo "Stashing local changes before pulling"
+          git stash push -m "auto-stash before pull"
+          git pull origin ${{ github.head_ref || github.ref_name }} --rebase
+          echo "Restoring stashed changes after rebase"
+          git stash pop || echo "No stash to pop"
+
+      # 8. Commit changes (fix: skip_fetch set to false)
+      - name: Commit changes if any
+        if: steps.changes.outputs.changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            [CI] Update data/food.sql from CSV
+            
+            - Generated from ${{ env.CSV_PATH || 'food-original.csv' }}
+            - Auto-committed by GitHub Actions
+          commit_user_name: GitHub Actions Bot
+          commit_user_email: actions@github.com
+          commit_author: GitHub Actions <actions@github.com>
+          file_pattern: "data/food.sql"
+          push_options: "--force-with-lease"
+          # Key fix: allow fetch to avoid push failures due to remote updates
+          skip_fetch: false
+          skip_checkout: false
+
+      # 9. Create a pull request (if on a fork)
+      - name: Create Pull Request (if on fork)
+        if: github.event_name == 'push' && github.repository_owner != 'masqueradeeer' && steps.changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "[CI] Update data/food.sql from CSV"
+          title: "chore: update food.sql from CSV"
+          body: |
+            ## 📊 SQL Update
+            
+            This PR updates `data/food.sql` with the latest data from `food-original.csv`.
+            
+            ### Changes
+            - Updated SQL file with new/updated restaurant data
+            - Auto-committed by GitHub Actions
+            
+            Please review the changes before merging.
+          branch: "ci/update-sql-${{ github.run_number }}"
+          base: ${{ github.head_ref || github.ref_name }}
+          delete-branch: true
+
+      # 10. Upload the SQL file as an artifact
+      - name: Upload SQL artifact
+        if: steps.changes.outputs.changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: food-sql
+          path: data/food.sql
+          retention-days: 7
+
+      # 11. Success message
+      - name: Success message
+        if: steps.changes.outputs.changes == 'true'
+        run: |
+          echo "✅ SQL file updated successfully!"
+          echo "📁 File: data/food.sql"
+          echo "📊 Records: $(grep -c 'INSERT INTO' data/food.sql || echo '0')"

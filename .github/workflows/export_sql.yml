@@ -1,0 +1,41 @@
+name: Export CSV to SQL
+
+on:
+  push:
+    paths:
+      - 'data/food.csv'
+  workflow_dispatch:
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        # Here is just a demonstration; the script itself does not require any dependencies.
+        run: pip install --no-cache-dir pandas
+
+      - name: Run export script
+        run: |
+          python export_to_sql.py
+
+      - name: Commit SQL file
+        run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+          git add data/food.sql
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore: update SQL from CSV'
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

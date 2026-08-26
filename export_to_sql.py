@@ -157,7 +157,10 @@ def generate_insert_sql(rows, fields):
                 values.append(escape_sql_value(val))
             values_list.append(f"({', '.join(values)})")
 
-        sql = f"INSERT INTO `{TABLE_NAME}` ({', '.join(fields_quoted)}) VALUES\n    {',\n    '.join(values_list)};"
+        # ✅ 修复：将包含 \n 的 join 操作提取到 f-string 外部作为变量
+        fields_joined = ', '.join(fields_quoted)
+        values_joined = ',\n    '.join(values_list)
+        sql = f"INSERT INTO `{TABLE_NAME}` ({fields_joined}) VALUES\n    {values_joined};"
         lines.append(sql)
         lines.append("")
 

@@ -4,7 +4,7 @@
 
 > ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request
 
-📊 **1** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-24 13:43:15 CST
+📊 **2** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-26 11:01:24 CST
 
 ## 📑 Table of Contents
 
@@ -19,34 +19,38 @@
 
 | Metric | Value |
 | :--- | ---: |
-| 📝 Total restaurants | **1** |
-| ⭐ Average rating | **4.50** / 5.0 |
+| 📝 Total restaurants | **2** |
+| ⭐ Average rating | **4.45** / 5.0 |
 | 🔼 Highest rating | **4.5** / 5.0 |
-| 🔽 Lowest rating | **4.5** / 5.0 |
+| 🔽 Lowest rating | **4.4** / 5.0 |
 
 ### 🍽️ Cuisine Breakdown
 
 | Cuisine | Count | Share |
 | :--- | ---: | ---: |
-| 中餐 | 1 | 100.0% ████████████████████ |
+| 中餐 | 1 | 50.0% ██████████░░░░░░░░░░ |
+| BBQ | 1 | 50.0% ██████████░░░░░░░░░░ |
 
 ### 💰 Price Distribution
 
 | Price Range | Count | Share |
 | :--- | ---: | ---: |
-| ¥60-100 | 1 | 100.0% ████████████████████ |
+| ¥30-60 | 1 | 50.0% ██████████░░░░░░░░░░ |
+| ¥60-100 | 1 | 50.0% ██████████░░░░░░░░░░ |
 
 ### 🏆 Top Rated (Top 5)
 
 | Rank | Name | Cuisine | Rating | Price |
 | :---: | :--- | :--- | :---: | :--- |
 | 1 | 示例餐厅 | 中餐 | ★★★★☆ 4.5 | ¥50-100 |
+| 2 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM40-60 |
 
 <h2 id="restaurant-list">📋 Restaurant List</h2>
 
 | Name | Cuisine | Price | Rating | Hours |
 | :--- | :--- | :---: | :---: | :--- |
 | [示例餐厅](https://example.com) | 中餐 | ¥50-100 | ★★★★☆ 4.5 | 周一-周日 11:00-21:00 |
+| [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | BBQ | RM40-60 | ★★★★☆ 4.4 | 10:00-22:00 |
 <h2 id="detailed-info">📖 Detailed Information</h2>
 
 <details>
@@ -55,6 +59,7 @@
 | Name | Notes / Recommended Dishes |
 | :--- | :--- |
 | [示例餐厅](https://example.com) | 示例条目：这是一个用来展示 CSV 格式的示例行。 |
+| [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | Kimchi soup |
 
 </details>
 

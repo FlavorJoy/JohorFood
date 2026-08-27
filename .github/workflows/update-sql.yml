@@ -7,7 +7,7 @@ on:
       - 'food-original.csv'
       - 'data/*.csv'
       - '.github/workflows/update-sql.yml'
-      - '../../export_to_sql.py'
+      - 'export_to_sql.py'
     branches:
       - main
       - master

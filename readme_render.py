@@ -77,10 +77,12 @@ def get_price_range(price_str: Optional[str]) -> str:
 
 
 def is_example_row(row: Dict[str, str]) -> bool:
-    """Check if the row is the placeholder example."""
-    name = (row.get("name") or "").strip()
-    notes = (row.get("notes") or "").strip()
-    return "example" in name.lower() or "example" in notes.lower()
+    """Check if the row is the placeholder example (supports English typos and Chinese)."""
+    name = (row.get("name") or "").strip().lower()
+    notes = (row.get("notes") or "").strip().lower()
+    # 扩展关键词列表，覆盖 example, eaxample(拼写错误), sample 以及中文的"示例"
+    keywords = ['example', 'eaxample', 'sample', '示例', 'Example',  'Example Restaurant']
+    return any(kw in name or kw in notes for kw in keywords)
 
 
 def format_hours(hours: Optional[str]) -> str:

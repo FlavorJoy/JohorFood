@@ -401,21 +401,28 @@ def main():
     # Read CSV
     fields, rows = read_csv(CSV_PATH)
 
-    # Filter out sample rows
-    rows = [r for r in rows if not ("Sample" in (r.get('name') or '') or "Sample" in (r.get('notes') or ''))]
+    # Filter out sample/example rows (case-insensitive, supports English typos and Chinese)
+    keywords = ['sample', 'example', 'eaxample', '示例']
+    rows = [
+        r for r in rows 
+        if not any(
+            kw in str(r.get('name') or '').lower() or kw in str(r.get('notes') or '').lower() 
+            for kw in keywords
+        )
+    ]
 
     if not rows:
-        print("⚠️ Warning: CSV file is empty or contains only sample rows")
+        print("⚠️ Warning: CSV file is empty or contains only sample/example rows")
 
     total_count = len(rows)
-    print(f"✅ Successfully read: {total_count} records, {len(fields)} fields")
+    print(f"✅ Successfully read: {total_count} valid records, {len(fields)} fields")
     print(f"📋 Fields: {', '.join(fields)}")
 
     # Generate SQL
     write_sql(SQL_PATH, fields, rows, total_count)
 
     print(f"✅ SQL generated successfully: {SQL_PATH}")
-    print(f"📊 Total records: {total_count}")
+    print(f"📊 Total valid records: {total_count}")
     print("=" * 60)
     print("💡 How to use:")
     print(f"   mysql -u root -p < {SQL_PATH}")

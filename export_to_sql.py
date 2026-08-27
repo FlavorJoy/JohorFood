@@ -18,6 +18,8 @@ SQL_PATH = os.getenv('SQL_PATH', 'data/food.sql')
 DATABASE_NAME = os.getenv('DATABASE_NAME', 'johor_food_db')
 TABLE_NAME = os.getenv('TABLE_NAME', 'johor_food')
 
+# Keywords to ignore during generation (case-insensitive matching will be applied)
+IGNORE_KEYWORDS = ['example', 'eaxample', 'sample', '示例', 'Example', 'Example Restaurant']
 
 # ============================================
 # Core Functions
@@ -31,7 +33,6 @@ def escape_sql_value(val):
     # Handle special characters
     escaped = val.replace('\\', '\\\\').replace("'", "''")
     return f"'{escaped}'"
-
 
 def detect_column_type(column_name, sample_values):
     """
@@ -72,7 +73,6 @@ def detect_column_type(column_name, sample_values):
             return f'VARCHAR({min(max_len + 50, 1000)}) DEFAULT NULL'
         else:
             return f'VARCHAR({max(50, min(max_len + 20, 255))}) DEFAULT NULL'
-
 
 def generate_create_table_sql(fields, rows):
     """Generate CREATE TABLE statement"""
@@ -132,7 +132,6 @@ def generate_create_table_sql(fields, rows):
 
     return "\n".join(lines)
 
-
 def generate_insert_sql(rows, fields):
     """Generate INSERT statements (batch insert)"""
     if not rows:
@@ -157,7 +156,6 @@ def generate_insert_sql(rows, fields):
                 values.append(escape_sql_value(val))
             values_list.append(f"({', '.join(values)})")
 
-        # ✅ 修复：将包含 \n 的 join 操作提取到 f-string 外部作为变量
         fields_joined = ', '.join(fields_quoted)
         values_joined = ',\n    '.join(values_list)
         sql = f"INSERT INTO `{TABLE_NAME}` ({fields_joined}) VALUES\n    {values_joined};"
@@ -167,10 +165,9 @@ def generate_insert_sql(rows, fields):
     lines.append("COMMIT;")
     return "\n".join(lines)
 
-
 def generate_validation_queries():
     """Generate data validation queries"""
-    return """
+    return f"""
 -- ============================================
 -- 5. Data Validation Queries (Optional)
 -- ============================================
@@ -197,22 +194,19 @@ ORDER BY `rating` DESC;
 -- Group by price range
 SELECT 
     CASE 
-        WHEN `price` REGEXP '^¥[0-9]+$' AND CAST(REPLACE(`price`, '¥', '') AS UNSIGNED) < 30 THEN 'Under ¥30'
-        WHEN `price` REGEXP '^¥[0-9]+$' AND CAST(REPLACE(`price`, '¥', '') AS UNSIGNED) BETWEEN 30 AND 60 THEN '¥30-60'
-        WHEN `price` REGEXP '^¥[0-9]+$' AND CAST(REPLACE(`price`, '¥', '') AS UNSIGNED) BETWEEN 60 AND 100 THEN '¥60-100'
-        WHEN `price` REGEXP '^¥[0-9]+$' AND CAST(REPLACE(`price`, '¥', '') AS UNSIGNED) > 100 THEN 'Above ¥100'
+        WHEN `price` REGEXP '^[¥RM]+[0-9]+$' THEN 'Budget'
+        WHEN `price` REGEXP '^[¥RM]+[0-9]+-[0-9]+$' THEN 'Mid-range'
         ELSE 'TBD'
     END AS price_range,
     COUNT(*) AS count
 FROM `{TABLE_NAME}`
 GROUP BY price_range
 ORDER BY price_range;
-""".format(TABLE_NAME=TABLE_NAME)
-
+"""
 
 def generate_views():
     """Generate common views"""
-    return """
+    return f"""
 -- ============================================
 -- 6. Create Views (For frequent queries)
 -- ============================================
@@ -237,12 +231,11 @@ FROM `{TABLE_NAME}`
 WHERE `cuisine` IS NOT NULL
 GROUP BY `cuisine`
 ORDER BY total_count DESC;
-""".format(TABLE_NAME=TABLE_NAME)
-
+"""
 
 def generate_stored_procedures():
     """Generate stored procedures"""
-    return """
+    return f"""
 -- ============================================
 -- 7. Create Stored Procedures (For easy data management)
 -- ============================================
@@ -285,12 +278,11 @@ BEGIN
 END //
 
 DELIMITER ;
-""".format(TABLE_NAME=TABLE_NAME)
-
+"""
 
 def generate_completion_message():
     """Generate installation completion message"""
-    return """
+    return f"""
 -- ============================================
 -- Installation Complete
 -- ============================================
@@ -300,10 +292,9 @@ SELECT '  - View all data: SELECT * FROM {TABLE_NAME};' AS tips;
 SELECT '  - View top-rated food: SELECT * FROM v_high_rating_food;' AS tips;
 SELECT '  - View stats by cuisine: SELECT * FROM v_cuisine_stats;' AS tips;
 SELECT '  - Query by rating range: CALL sp_get_food_by_rating(4.5, 5.0);' AS tips;
-SELECT '  - Query by cuisine: CALL sp_get_food_by_cuisine(''Hunan'');' AS tips;
-SELECT '  - Search food: CALL sp_search_food(''Beef'');' AS tips;
-""".format(TABLE_NAME=TABLE_NAME)
-
+SELECT '  - Query by cuisine: CALL sp_get_food_by_cuisine(''BBQ'');' AS tips;
+SELECT '  - Search food: CALL sp_search_food(''Kimchi'');' AS tips;
+"""
 
 def read_csv(csv_path):
     """Read CSV file"""
@@ -326,7 +317,6 @@ def read_csv(csv_path):
         print(f"❌ Error reading CSV file: {e}", file=sys.stderr)
         sys.exit(1)
 
-
 def write_sql(sql_path, fields, rows, total_count):
     """Generate complete SQL script"""
     # Ensure output directory exists
@@ -338,7 +328,7 @@ def write_sql(sql_path, fields, rows, total_count):
         sqlfile.write("-- Johor Food Database - Complete Installation Script\n")
         sqlfile.write(f"-- Generated by: {os.path.basename(__file__)}\n")
         sqlfile.write(f"-- Generated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        sqlfile.write(f"-- Total records: {total_count}\n")
+        sqlfile.write(f"-- Total valid records: {total_count}\n")
         sqlfile.write(f"-- Database: {DATABASE_NAME}\n")
         sqlfile.write("-- ============================================\n\n")
 
@@ -386,7 +376,6 @@ def write_sql(sql_path, fields, rows, total_count):
         # 8. Completion Message
         sqlfile.write(generate_completion_message())
 
-
 def main():
     """Main Function"""
     print("=" * 60)
@@ -401,18 +390,22 @@ def main():
     # Read CSV
     fields, rows = read_csv(CSV_PATH)
 
-    # Filter out sample/example rows (case-insensitive, supports English typos and Chinese)
-    keywords = ['sample', 'example', 'eaxample', '示例']
-    rows = [
-        r for r in rows 
-        if not any(
-            kw in str(r.get('name') or '').lower() or kw in str(r.get('notes') or '').lower() 
-            for kw in keywords
-        )
-    ]
+    # Filter out example/sample rows (case-insensitive)
+    filtered_rows = []
+    for r in rows:
+        name = str(r.get('name') or '').lower()
+        notes = str(r.get('notes') or '').lower()
+        
+        # Check if any keyword exists in name or notes
+        is_example = any(kw.lower() in name or kw.lower() in notes for kw in IGNORE_KEYWORDS)
+        
+        if not is_example:
+            filtered_rows.append(r)
+            
+    rows = filtered_rows
 
     if not rows:
-        print("⚠️ Warning: CSV file is empty or contains only sample/example rows")
+        print("⚠️ Warning: CSV file is empty or contains only example/sample rows")
 
     total_count = len(rows)
     print(f"✅ Successfully read: {total_count} valid records, {len(fields)} fields")
@@ -428,7 +421,6 @@ def main():
     print(f"   mysql -u root -p < {SQL_PATH}")
     print("   Or run inside MySQL client: source " + SQL_PATH)
     print("=" * 60)
-
 
 if __name__ == "__main__":
     main()

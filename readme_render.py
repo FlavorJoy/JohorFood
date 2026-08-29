@@ -3,6 +3,8 @@
 """
 README Renderer - Generate a clean README.md from the CSV.
 Includes full data display: statistics, charts, and interactive filters.
+Now grouped by area (region) with separate tables per region.
+No "Other" region displayed; only explicitly defined regions appear.
 """
 
 import csv
@@ -10,7 +12,7 @@ import datetime
 import sys
 import os
 import re
-from collections import defaultdict
+from collections import defaultdict, Counter
 from typing import List, Dict, Any, Optional, Tuple
 
 # ============================================
@@ -80,8 +82,7 @@ def is_example_row(row: Dict[str, str]) -> bool:
     """Check if the row is the placeholder example (supports English typos and Chinese)."""
     name = (row.get("name") or "").strip().lower()
     notes = (row.get("notes") or "").strip().lower()
-    # 扩展关键词列表，覆盖 example, eaxample(拼写错误), sample 以及中文的"示例"
-    keywords = ['example', 'eaxample', 'sample', '示例', 'Example',  'Example Restaurant']
+    keywords = ['example', 'eaxample', 'sample', '示例', 'Example', 'Example Restaurant']
     return any(kw in name or kw in notes for kw in keywords)
 
 
@@ -135,8 +136,15 @@ def generate_progress_bar(percentage: float, width: int = 20) -> str:
     return "█" * filled + "░" * (width - filled)
 
 
+def is_valid_region(region: str) -> bool:
+    """Return True if region is not empty and not 'Other' (case-insensitive)."""
+    if not region:
+        return False
+    return region.strip().lower() != 'other'
+
+
 def generate_statistics(rows: List[Dict]) -> Dict[str, Any]:
-    """Compute summary statistics."""
+    """Compute summary statistics (region stats exclude 'Other')."""
     total = len(rows)
     ratings = [parse_rating(r.get("rating", "")) for r in rows]
     avg_rating = sum(ratings) / total if total > 0 else 0.0
@@ -149,6 +157,13 @@ def generate_statistics(rows: List[Dict]) -> Dict[str, Any]:
 
     top_rated = get_top_rated(rows, MAX_TOP_RATED)
 
+    # Region stats: only include valid regions
+    region_stats = Counter()
+    for r in rows:
+        area = (r.get("area") or "").strip()
+        if is_valid_region(area):
+            region_stats[area] += 1
+
     return {
         'total': total,
         'avg_rating': avg_rating,
@@ -157,6 +172,7 @@ def generate_statistics(rows: List[Dict]) -> Dict[str, Any]:
         'top_rated': top_rated,
         'max_rating': max(ratings) if ratings else 0.0,
         'min_rating': min(ratings) if ratings else 0.0,
+        'region_stats': region_stats,
     }
 
 
@@ -174,6 +190,17 @@ def generate_stats_markdown(stats: Dict[str, Any], section_id: str = "data-stati
         lines.append(f"| 🔼 Highest rating | **{stats['max_rating']:.1f}** / 5.0 |\n")
         lines.append(f"| 🔽 Lowest rating | **{stats['min_rating']:.1f}** / 5.0 |\n")
     lines.append("\n")
+
+    # Region distribution (only valid regions)
+    region_stats = stats.get('region_stats')
+    if region_stats:
+        lines.append("### 📍 Region Breakdown\n\n| Region | Count | Share |\n| :--- | ---: | ---: |\n")
+        total = stats['total']
+        for region, count in sorted(region_stats.items()):
+            percentage = (count / total * 100) if total > 0 else 0
+            bar = generate_progress_bar(percentage)
+            lines.append(f"| {region} | {count} | {percentage:.1f}% {bar} |\n")
+        lines.append("\n")
 
     if stats['cuisine_stats']:
         lines.append("### 🍽️ Cuisine Breakdown\n\n| Cuisine | Count | Share |\n| :--- | ---: | ---: |\n")
@@ -207,9 +234,11 @@ def generate_stats_markdown(stats: Dict[str, Any], section_id: str = "data-stati
     return lines
 
 
-def generate_main_table(rows: List[Dict], section_id: str = "restaurant-list") -> List[str]:
+def generate_region_main_table(region_name: str, rows: List[Dict]) -> List[str]:
+    """Generate a single region's main table."""
     lines = []
-    lines.append(f'<h2 id="{section_id}">📋 Restaurant List</h2>\n\n')
+    anchor = f"region-{region_name.lower().replace(' ', '-')}"
+    lines.append(f'<h3 id="{anchor}">{region_name} Area</h3>\n\n')
     lines.append("| Name | Cuisine | Price | Rating | Hours |\n| :--- | :--- | :---: | :---: | :--- |\n")
     for r in rows:
         url = (r.get("url") or "").strip()
@@ -220,13 +249,15 @@ def generate_main_table(rows: List[Dict], section_id: str = "restaurant-list") -
         rating_display = f"{stars} {rating_val:.1f}" if rating_val > 0 else "—"
         hours = format_hours(esc(r.get("hours", "")))
         lines.append(f"| {name} | {esc(r.get('cuisine', ''))} | {esc(r.get('price', ''))} | {rating_display} | {hours} |\n")
+    lines.append("\n")
     return lines
 
 
-def generate_detail_table(rows: List[Dict], section_id: str = "detailed-info") -> List[str]:
+def generate_region_detail_table(region_name: str, rows: List[Dict]) -> List[str]:
+    """Generate a single region's detailed info (collapsible)."""
     lines = []
-    lines.append(f'<h2 id="{section_id}">📖 Detailed Information</h2>\n\n')
-    lines.append("<details>\n<summary>📖 Click to expand details (notes / recommended dishes)</summary>\n\n")
+    anchor = f"detail-{region_name.lower().replace(' ', '-')}"
+    lines.append(f'<details id="{anchor}">\n<summary>📖 {region_name} Area – Click to expand detailed information (Recommended dishes / Notes)</summary>\n\n')
     lines.append("| Name | Notes / Recommended Dishes |\n| :--- | :--- |\n")
     for r in rows:
         url = (r.get("url") or "").strip()
@@ -235,6 +266,28 @@ def generate_detail_table(rows: List[Dict], section_id: str = "detailed-info") -
         notes = esc(r.get("notes", "")) or "—"
         lines.append(f"| {name} | {notes} |\n")
     lines.append("\n</details>\n\n")
+    return lines
+
+
+def generate_region_tables(rows: List[Dict]) -> List[str]:
+    """Generate tables grouped by area, excluding 'Other' region."""
+    groups = defaultdict(list)
+    for r in rows:
+        area = (r.get("area") or "").strip()
+        if is_valid_region(area):
+            groups[area].append(r)
+
+    if not groups:
+        return ["No valid region data found.\n\n"]
+
+    lines = []
+    lines.append(f'<h2 id="region-list">📍 Restaurant List by Region</h2>\n\n')
+    for region in sorted(groups.keys()):
+        region_rows = groups[region]
+        # Sort each region's rows by rating descending
+        region_rows.sort(key=lambda r: parse_rating(r.get("rating", "")), reverse=True)
+        lines.extend(generate_region_main_table(region, region_rows))
+        lines.extend(generate_region_detail_table(region, region_rows))
     return lines
 
 
@@ -262,7 +315,7 @@ def generate_footer(section_id: str = "contribution") -> List[str]:
     lines.append(f'<h2 id="{section_id}">📝 Contribution Guide</h2>\n\n')
     lines.append("1. Fork this repository\n2. Edit `food-original.csv`\n3. Run `python readme_render.py` to update README\n4. Run `python export_to_sql.py` to update the SQL file\n5. Submit a Pull Request\n\n")
     lines.append("### CSV Format\n\n| Field | Meaning | Example |\n| :--- | :--- | :--- |\n")
-    lines.append("| name | Restaurant name | Yaba Shengjian (Linton Road) |\n| cuisine | Cuisine type | Suzhou cuisine |\n| price | Average price | ¥28/person |\n| rating | Score (0-5) | 4.7 |\n| url | Amap link | https://surl.amap.com/xxx |\n| hours | Opening hours | 6:30-19:30 |\n| notes | Notes / recommended dishes | Fried buns, beef soup |\n")
+    lines.append("| name | Restaurant name | Yaba Shengjian (Linton Road) |\n| cuisine | Cuisine type | Suzhou cuisine |\n| price | Average price | ¥28/person |\n| rating | Score (0-5) | 4.7 |\n| url | Amap link | https://surl.amap.com/xxx |\n| hours | Opening hours | 6:30-19:30 |\n| notes | Notes / recommended dishes | Fried buns, beef soup |\n| area | Region / area | Johor |\n")
     return lines
 
 
@@ -299,7 +352,7 @@ def main():
     if not rows:
         print("⚠️ Warning: No valid data (maybe only the example row)")
 
-    # Sort by rating descending
+    # Sort by rating descending (global)
     rows.sort(key=lambda r: parse_rating(r.get("rating", "")), reverse=True)
     print(f"✅ Successfully read: {len(rows)} valid records")
 
@@ -314,19 +367,25 @@ def main():
     beijing_time = get_current_beijing_time()
     lines.append(f"📊 **{len(rows)}** restaurants in the guide ｜ 🕒 Updated at Beijing time: {beijing_time.strftime('%Y-%m-%d %H:%M:%S')} CST\n\n")
 
-    # 2. Table of contents
+    # 2. Table of contents (only valid regions)
+    region_names = sorted(stats.get('region_stats', {}).keys())
+    region_links = [f"- [{region} Area](#region-{region.lower().replace(' ', '-')})" for region in region_names]
+
     lines.append("## 📑 Table of Contents\n\n")
     lines.append("- [📊 Guide Statistics](#data-statistics)\n")
-    lines.append("- [📋 Restaurant List](#restaurant-list)\n")
-    lines.append("- [📖 Detailed Information](#detailed-info)\n")
+    if region_links:
+        lines.append("- 📍 Restaurant List by Region\n")
+        for link in region_links:
+            lines.append(f"  {link}\n")
+    else:
+        lines.append("- [📍 Restaurant List by Region](#region-list) *(no valid regions)*\n")
     lines.append("- [🔍 How to Use](#how-to-use)\n")
     lines.append("- [📌 Legend](#legend)\n")
     lines.append("- [📝 Contribution Guide](#contribution)\n\n")
 
     # 3. Assemble sections
     lines.extend(generate_stats_markdown(stats))
-    lines.extend(generate_main_table(rows))
-    lines.extend(generate_detail_table(rows))
+    lines.extend(generate_region_tables(rows))
     lines.extend(generate_search_guide())
     lines.extend(generate_legend())
     lines.extend(generate_footer())
@@ -348,6 +407,7 @@ def main():
     print(f"  - Highest rating: {stats['max_rating']:.1f}")
     print(f"  - Lowest rating: {stats['min_rating']:.1f}")
     print(f"  - Cuisine types: {len(stats['cuisine_stats'])}")
+    print(f"  - Regions (displayed): {len(stats.get('region_stats', {}))}")
 
     if stats['cuisine_stats']:
         print("\n  🍽️ Cuisine breakdown (Top 5):")

@@ -4,13 +4,13 @@
 
 > ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request
 
-📊 **1** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-27 16:17:25 CST
+📊 **4** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-29 11:11:21 CST
 
 ## 📑 Table of Contents
 
 - [📊 Guide Statistics](#data-statistics)
-- [📋 Restaurant List](#restaurant-list)
-- [📖 Detailed Information](#detailed-info)
+- 📍 Restaurant List by Region
+  - [Johor Area](#region-johor)
 - [🔍 How to Use](#how-to-use)
 - [📌 Legend](#legend)
 - [📝 Contribution Guide](#contribution)
@@ -19,42 +19,62 @@
 
 | Metric | Value |
 | :--- | ---: |
-| 📝 Total restaurants | **1** |
-| ⭐ Average rating | **4.40** / 5.0 |
-| 🔼 Highest rating | **4.4** / 5.0 |
-| 🔽 Lowest rating | **4.4** / 5.0 |
+| 📝 Total restaurants | **4** |
+| ⭐ Average rating | **4.45** / 5.0 |
+| 🔼 Highest rating | **4.8** / 5.0 |
+| 🔽 Lowest rating | **4.2** / 5.0 |
+
+### 📍 Region Breakdown
+
+| Region | Count | Share |
+| :--- | ---: | ---: |
+| Johor | 4 | 100.0% ████████████████████ |
 
 ### 🍽️ Cuisine Breakdown
 
 | Cuisine | Count | Share |
 | :--- | ---: | ---: |
-| BBQ | 1 | 100.0% ████████████████████ |
+| Arabic dishes | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
+| BBQ | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
+| Beef noodles | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
+| Mamak | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
 
 ### 💰 Price Distribution
 
 | Price Range | Count | Share |
 | :--- | ---: | ---: |
-| ¥30-60 | 1 | 100.0% ████████████████████ |
+| Under ¥30 | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
+| ¥30-60 | 3 | 75.0% ███████████████░░░░░ |
 
 ### 🏆 Top Rated (Top 5)
 
 | Rank | Name | Cuisine | Rating | Price |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM40-60 |
+| 1 | Restoran Arab Zaatar | Arabic dishes | ★★★★★ 4.8 | RM 30-80 |
+| 2 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM 40-60 |
+| 3 | 阿华牛肉面 Ah Hua Beef noodles | Beef noodles | ★★★★☆ 4.4 | RM 20-40 |
+| 4 | Restoran Al-Safa Iskandar Puteri | Mamak | ★★★★☆ 4.2 | RM 1-20 |
 
-<h2 id="restaurant-list">📋 Restaurant List</h2>
+<h2 id="region-list">📍 Restaurant List by Region</h2>
+
+<h3 id="region-johor">Johor Area</h3>
 
 | Name | Cuisine | Price | Rating | Hours |
 | :--- | :--- | :---: | :---: | :--- |
-| [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | BBQ | RM40-60 | ★★★★☆ 4.4 | 10:00-22:00 |
-<h2 id="detailed-info">📖 Detailed Information</h2>
+| [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Arabic dishes | RM 30-80 | ★★★★★ 4.8 | 10:00–01:00 |
+| [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | BBQ | RM 40-60 | ★★★★☆ 4.4 | 10:00-22:00 |
+| [阿华牛肉面 Ah Hua Beef noodles](https://maps.app.goo.gl/WbV8RYg739TsiKUa6) | Beef noodles | RM 20-40 | ★★★★☆ 4.4 | 08:00–21:00, Wednesday, rest |
+| [Restoran Al-Safa Iskandar Puteri](https://maps.app.goo.gl/fbhHDxUXvKXWk2m58) | Mamak | RM 1-20 | ★★★★☆ 4.2 | 24H operation |
 
-<details>
-<summary>📖 Click to expand details (notes / recommended dishes)</summary>
+<details id="detail-johor">
+<summary>📖 Johor Area – Click to expand detailed information (Recommended dishes / Notes)</summary>
 
 | Name | Notes / Recommended Dishes |
 | :--- | :--- |
+| [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Mix Grill Family Size |
 | [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | Kimchi soup |
+| [阿华牛肉面 Ah Hua Beef noodles](https://maps.app.goo.gl/WbV8RYg739TsiKUa6) | Beef noodles, 砂锅麻油鸡 |
+| [Restoran Al-Safa Iskandar Puteri](https://maps.app.goo.gl/fbhHDxUXvKXWk2m58) | Roti Kosong, Roti Telur,Megi Goreng |
 
 </details>
 
@@ -108,3 +128,4 @@ Use `Ctrl+F` (or `Cmd+F`) in your browser to search keywords (e.g., "grilled", "
 | url | Amap link | https://surl.amap.com/xxx |
 | hours | Opening hours | 6:30-19:30 |
 | notes | Notes / recommended dishes | Fried buns, beef soup |
+| area | Region / area | Johor |

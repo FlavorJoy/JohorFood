@@ -1,4 +1,6 @@
 name,cuisine,price,rating,url,hours,notes
 示例餐厅,中餐,¥50-100,4.5,https://example.com,周一-周日 11:00-21:00,示例条目：这是一个用来展示 CSV 格式的示例行。
-RunningMan Korea Restaurant,BBQ,RM40-60,4.4,https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic,10:00-22:00,Kimchi soup
+RunningMan Korea Restaurant,BBQ,RM 40-60,4.4,https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic,10:00-22:00,Kimchi soup
 Restoran Arab Zaatar,Arabic dishes,RM 30-80,4.8,https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA,10:00–01:00,Mix Grill Family Size
+Restoran Al-Safa Iskandar Puteri,Mamak,RM 1-20,4.2,https://maps.app.goo.gl/fbhHDxUXvKXWk2m58,24H operation,"Roti Kosong, Roti Telur,Megi Goreng"
+阿华牛肉面 Ah Hua Beef noodles,Beef noodles,RM 20-40,4.4,https://maps.app.goo.gl/WbV8RYg739TsiKUa6,,

@@ -4,7 +4,7 @@
 
 > ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request
 
-📊 **4** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-29 11:11:21 CST
+📊 **4** restaurants in the guide ｜ 🕒 Updated at Beijing time: 2026-08-29 11:13:38 CST
 
 ## 📑 Table of Contents
 
@@ -45,17 +45,11 @@
 | :--- | ---: | ---: |
 | Under ¥30 | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
 | ¥30-60 | 3 | 75.0% ███████████████░░░░░ |
-| Under ¥30 | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
-| ¥30-60 | 3 | 75.0% ███████████████░░░░░ |
 
 ### 🏆 Top Rated (Top 5)
 
 | Rank | Name | Cuisine | Rating | Price |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | Restoran Arab Zaatar | Arabic dishes | ★★★★★ 4.8 | RM 30-80 |
-| 2 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM 40-60 |
-| 3 | 阿华牛肉面 Ah Hua Beef noodles | Beef noodles | ★★★★☆ 4.4 | RM 20-40 |
-| 4 | Restoran Al-Safa Iskandar Puteri | Mamak | ★★★★☆ 4.2 | RM 1-20 |
 | 1 | Restoran Arab Zaatar | Arabic dishes | ★★★★★ 4.8 | RM 30-80 |
 | 2 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM 40-60 |
 | 3 | 阿华牛肉面 Ah Hua Beef noodles | Beef noodles | ★★★★☆ 4.4 | RM 20-40 |
@@ -77,7 +71,6 @@
 
 | Name | Notes / Recommended Dishes |
 | :--- | :--- |
-| [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Mix Grill Family Size |
 | [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Mix Grill Family Size |
 | [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | Kimchi soup |
 | [阿华牛肉面 Ah Hua Beef noodles](https://maps.app.goo.gl/WbV8RYg739TsiKUa6) | Beef noodles, 砂锅麻油鸡 |

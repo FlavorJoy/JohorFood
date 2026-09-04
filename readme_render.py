@@ -365,7 +365,7 @@ def main():
     lines.append("> ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request\n\n")
 
     kualalumpur_time = get_current_kualalumpur_time()
-    lines.append(f"📊 **{len(rows)}** restaurants in the guide ｜ 🕒 Updated at Kuala Lumpur time: {kualalumpur.strftime('%Y-%m-%d %H:%M:%S')} CST\n\n")
+    lines.append(f"📊 **{len(rows)}** restaurants in the guide ｜ 🕒 Updated at Kuala Lumpur time: {kualalumpur_time.strftime('%Y-%m-%d %H:%M:%S')} CST\n\n")
 
     # 2. Table of contents (only valid regions)
     region_names = sorted(stats.get('region_stats', {}).keys())

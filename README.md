@@ -4,13 +4,15 @@
 
 > ✏️ To add or edit a restaurant, update `food-original.csv` and submit a Pull Request
 
-📊 **4** restaurants in the guide ｜ 🕒 Updated at Kuala Lumpur time: 2026-09-04 15:19:18 CST
+📊 **35** restaurants in the guide ｜ 🕒 Updated at Kuala Lumpur time: 2026-09-05 11:51:37 CST
 
 ## 📑 Table of Contents
 
 - [📊 Guide Statistics](#data-statistics)
 - 📍 Restaurant List by Region
   - [Johor Area](#region-johor)
+  - [KL Area](#region-kl)
+  - [Melaka Area](#region-melaka)
 - [🔍 How to Use](#how-to-use)
 - [📌 Legend](#legend)
 - [📝 Contribution Guide](#contribution)
@@ -19,41 +21,63 @@
 
 | Metric | Value |
 | :--- | ---: |
-| 📝 Total restaurants | **4** |
-| ⭐ Average rating | **4.45** / 5.0 |
-| 🔼 Highest rating | **4.8** / 5.0 |
-| 🔽 Lowest rating | **4.2** / 5.0 |
+| 📝 Total restaurants | **35** |
+| ⭐ Average rating | **4.26** / 5.0 |
+| 🔼 Highest rating | **4.9** / 5.0 |
+| 🔽 Lowest rating | **2.9** / 5.0 |
 
 ### 📍 Region Breakdown
 
 | Region | Count | Share |
 | :--- | ---: | ---: |
-| Johor | 4 | 100.0% ████████████████████ |
+| Johor | 25 | 71.4% ██████████████░░░░░░ |
+| KL | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Melaka | 9 | 25.7% █████░░░░░░░░░░░░░░░ |
 
 ### 🍽️ Cuisine Breakdown
 
 | Cuisine | Count | Share |
 | :--- | ---: | ---: |
-| Arabic dishes | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
-| BBQ | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
-| Beef noodles | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
-| Mamak | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
+| Restaurant | 7 | 20.0% ████░░░░░░░░░░░░░░░░ |
+| Cafe | 4 | 11.4% ██░░░░░░░░░░░░░░░░░░ |
+| Chinese | 4 | 11.4% ██░░░░░░░░░░░░░░░░░░ |
+| Buffet | 2 | 5.7% █░░░░░░░░░░░░░░░░░░░ |
+| Asian | 2 | 5.7% █░░░░░░░░░░░░░░░░░░░ |
+| Shabu Shabu | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Arabic dishes | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Hot Pot | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Satay restaurant | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| BBQ | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Beef noodles | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Korean BBQ | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Dessert shop | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Malaysian | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Thai | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Mamak | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Chinese Noodles | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Mandarin restaurant | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Nyonya restaurant | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Dessert | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
+| Coffee shop | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
 
 ### 💰 Price Distribution
 
 | Price Range | Count | Share |
 | :--- | ---: | ---: |
-| Under ¥30 | 1 | 25.0% █████░░░░░░░░░░░░░░░ |
-| ¥30-60 | 3 | 75.0% ███████████████░░░░░ |
+| Under ¥30 | 14 | 40.0% ████████░░░░░░░░░░░░ |
+| ¥30-60 | 18 | 51.4% ██████████░░░░░░░░░░ |
+| ¥60-100 | 2 | 5.7% █░░░░░░░░░░░░░░░░░░░ |
+| TBD | 1 | 2.9% ░░░░░░░░░░░░░░░░░░░░ |
 
 ### 🏆 Top Rated (Top 5)
 
 | Rank | Name | Cuisine | Rating | Price |
 | :---: | :--- | :--- | :---: | :--- |
-| 1 | Restoran Arab Zaatar | Arabic dishes | ★★★★★ 4.8 | RM 30-80 |
-| 2 | RunningMan Korea Restaurant | BBQ | ★★★★☆ 4.4 | RM 40-60 |
-| 3 | 阿华牛肉面 Ah Hua Beef noodles | Beef noodles | ★★★★☆ 4.4 | RM 20-40 |
-| 4 | Restoran Al-Safa Iskandar Puteri | Mamak | ★★★★☆ 4.2 | RM 1-20 |
+| 1 | arest Cafe Bukit Indah | Restaurant | ★★★★★ 4.9 | RM 20-40 |
+| 2 | Arashi Shabu-Shabu | Shabu Shabu | ★★★★★ 4.9 | RM 40-120 |
+| 3 | Restoran Arab Zaatar | Arabic dishes | ★★★★★ 4.8 | RM 30-80 |
+| 4 | Der' Cabin Bistro Gelang Patah | Restaurant | ★★★★★ 4.8 | RM 20-40 |
+| 5 | Manzanita Pâtisserie & Boulangerie - Eco Botanic | Cafe | ★★★★★ 4.8 | RM 20-40 |
 
 <h2 id="region-list">📍 Restaurant List by Region</h2>
 
@@ -61,20 +85,108 @@
 
 | Name | Cuisine | Price | Rating | Hours |
 | :--- | :--- | :---: | :---: | :--- |
+| [arest Cafe Bukit Indah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 20-40 | ★★★★★ 4.9 |  |
+| [Arashi Shabu-Shabu](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Shabu Shabu | RM 40-120 | ★★★★★ 4.9 |  |
 | [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Arabic dishes | RM 30-80 | ★★★★★ 4.8 | 10:00–01:00 |
+| [Der' Cabin Bistro Gelang Patah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 20-40 | ★★★★★ 4.8 |  |
+| [Manzanita Pâtisserie & Boulangerie - Eco Botanic](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Cafe | RM 20-40 | ★★★★★ 4.8 |  |
+| [大吉利自助火锅烤肉](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Buffet | RM 40-60 | ★★★★★ 4.7 |  |
+| [Hot Pot Shabu Shabu Bukit Indah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Hot Pot | RM 40-60 | ★★★★★ 4.6 |  |
+| [Meet House Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Cafe | RM 20-40 | ★★★★☆ 4.5 |  |
+| [Restaurant Tau Fu](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Chinese | RM 1-20 | ★★★★☆ 4.5 |  |
 | [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | BBQ | RM 40-60 | ★★★★☆ 4.4 | 10:00-22:00 |
 | [阿华牛肉面 Ah Hua Beef noodles](https://maps.app.goo.gl/WbV8RYg739TsiKUa6) | Beef noodles | RM 20-40 | ★★★★☆ 4.4 | 08:00–21:00, Wednesday, rest |
+| [火岩山擂茶 Volcano Thunder Tea](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 1-20 | ★★★★☆ 4.4 |  |
+| [Zen+ Korean BBQ(JOHOR BAHRU)](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Korean BBQ | RM 40-60 | ★★★★☆ 4.4 |  |
+| [Queen Bean House 皇后红豆冰](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Dessert shop |  | ★★★★☆ 4.3 |  |
 | [Restoran Al-Safa Iskandar Puteri](https://maps.app.goo.gl/fbhHDxUXvKXWk2m58) | Mamak | RM 1-20 | ★★★★☆ 4.2 | 24H operation |
+| [Dajia Yuen Restaurant](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 20-40 | ★★★★☆ 4.1 |  |
+| [Shüü Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Cafe | RM 20-40 | ★★★★☆ 4.1 |  |
+| [（SinHaiCheng）](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 1-40 | ★★★★☆ 4.1 |  |
+| [HAVOC Hotpot](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Buffet | RM 40-60 | ★★★★☆ 4.0 |  |
+| [Da Ma Kuey Teow Sutera](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 1-20 | ★★★★☆ 3.9 |  |
+| [BBQ Box (Mount Austin)](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Mandarin restaurant | RM 40-60 | ★★★★☆ 3.9 |  |
+| [中华风味湘菜馆](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Restaurant | RM 20-100 | ★★★★☆ 3.9 |  |
+| [Kopitiam Tong Nam DSY](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Asian | RM 1-20 | ★★★★☆ 3.9 |  |
+| [Heng Park Garden Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Asian | RM 1-20 | ★★★★☆ 3.8 |  |
+| [7773 Kopitiam](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Coffee shop | RM 1-20 | ★★★☆☆ 2.9 |  |
 
 <details id="detail-johor">
 <summary>📖 Johor Area – Click to expand detailed information (Recommended dishes / Notes)</summary>
 
 | Name | Notes / Recommended Dishes |
 | :--- | :--- |
+| [arest Cafe Bukit Indah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Bukit Indah |
+| [Arashi Shabu-Shabu](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
 | [Restoran Arab Zaatar](https://maps.app.goo.gl/H4Txq32iZoJJZ8FTA) | Mix Grill Family Size |
+| [Der' Cabin Bistro Gelang Patah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Gelang Patah |
+| [Manzanita Pâtisserie & Boulangerie - Eco Botanic](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Eco Botanic |
+| [大吉利自助火锅烤肉](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Hot Pot Shabu Shabu Bukit Indah](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Bukit Indah |
+| [Meet House Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Restaurant Tau Fu](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
 | [RunningMan Korea Restaurant](https://maps.app.goo.gl/SLcFTksQKvBHkXvy6?g_st=ic) | Kimchi soup |
 | [阿华牛肉面 Ah Hua Beef noodles](https://maps.app.goo.gl/WbV8RYg739TsiKUa6) | Beef noodles, 砂锅麻油鸡 |
+| [火岩山擂茶 Volcano Thunder Tea](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Zen+ Korean BBQ(JOHOR BAHRU)](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Queen Bean House 皇后红豆冰](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
 | [Restoran Al-Safa Iskandar Puteri](https://maps.app.goo.gl/fbhHDxUXvKXWk2m58) | Roti Kosong, Roti Telur,Megi Goreng |
+| [Dajia Yuen Restaurant](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Shüü Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [（SinHaiCheng）](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [HAVOC Hotpot](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Da Ma Kuey Teow Sutera](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [BBQ Box (Mount Austin)](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Mount Austin |
+| [中华风味湘菜馆](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Hunan cuisine |
+| [Kopitiam Tong Nam DSY](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Heng Park Garden Cafe](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [7773 Kopitiam](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+
+</details>
+
+<h3 id="region-kl">KL Area</h3>
+
+| Name | Cuisine | Price | Rating | Hours |
+| :--- | :--- | :---: | :---: | :--- |
+| [Village Park Restaurant](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Malaysian | RM 1-20 | ★★★★☆ 4.3 |  |
+
+<details id="detail-kl">
+<summary>📖 KL Area – Click to expand detailed information (Recommended dishes / Notes)</summary>
+
+| Name | Notes / Recommended Dishes |
+| :--- | :--- |
+| [Village Park Restaurant](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+
+</details>
+
+<h3 id="region-melaka">Melaka Area</h3>
+
+| Name | Cuisine | Price | Rating | Hours |
+| :--- | :--- | :---: | :---: | :--- |
+| [McQuek's Satay Celup](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Satay restaurant | RM 20-40 | ★★★★☆ 4.5 |  |
+| [Kubu Yong Tau Foo Kopitiam](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Chinese | RM 1-20 | ★★★★☆ 4.5 |  |
+| [一日山品 Something Bakery @ Bukit Cina](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Cafe | RM 20-40 | ★★★★☆ 4.4 |  |
+| [Restoran Thai Xiang](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Thai | RM 1-20 | ★★★★☆ 4.3 |  |
+| [Restaurant Lee Swee Meng](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Chinese | RM 20-40 | ★★★★☆ 4.2 |  |
+| [Oriental Cafe](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Chinese Noodles | RM 1-20 | ★★★★☆ 4.1 |  |
+| [Restoran Kok Keong](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Chinese | RM 1-20 | ★★★★☆ 4.0 |  |
+| [Nancy's Kitchen](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Nyonya restaurant | RM 20-40 | ★★★★☆ 3.9 |  |
+| [Jonker 88](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Dessert | RM 1-20 | ★★★★☆ 3.8 |  |
+
+<details id="detail-melaka">
+<summary>📖 Melaka Area – Click to expand detailed information (Recommended dishes / Notes)</summary>
+
+| Name | Notes / Recommended Dishes |
+| :--- | :--- |
+| [McQuek's Satay Celup](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | — |
+| [Kubu Yong Tau Foo Kopitiam](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Yong Tau Foo |
+| [一日山品 Something Bakery @ Bukit Cina](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | Bukit Cina |
+| [Restoran Thai Xiang](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | — |
+| [Restaurant Lee Swee Meng](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | — |
+| [Oriental Cafe](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | — |
+| [Restoran Kok Keong](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | — |
+| [Nancy's Kitchen](https://maps.app.goo.gl/DWPBnDWwiEDBwT8cA) | — |
+| [Jonker 88](https://maps.app.goo.gl/eKFCvkJushcPfcF79) | Jonker Street |
 
 </details>
 
